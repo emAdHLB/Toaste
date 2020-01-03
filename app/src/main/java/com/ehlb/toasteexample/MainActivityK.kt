@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ehlb.toaste.Toaste
 
-class MainActivity : AppCompatActivity() {
+class MainActivityK : AppCompatActivity() {
     private var toaste: Toaste? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,40 +24,61 @@ class MainActivity : AppCompatActivity() {
     fun t1(view: View) {
         hideToast()
         toaste =
-            Toaste.makeText(this, "Normal toast")
+            Toaste.makeInfo(
+                this,
+                "Info Toaste"
+            )
         toaste?.show()
     }
 
     fun t2(view: View) {
         hideToast()
         toaste =
-            Toaste.makeText(this, "Normal toast", Toaste.LENGTH_SHORT, Toaste.TYPE_SUCCESS)
+            Toaste.makeSuccess(
+                this,
+                "Success Toaste",
+                false
+            )
         toaste?.show()
     }
 
     fun t3(view: View) {
         hideToast()
         toaste =
-            Toaste.makeText(this, "Normal toast", Toaste.LENGTH_SHORT, Toaste.TYPE_WARNING)
+            Toaste.makeWarning(
+                this,
+                "Warning Toaste",
+                true
+            )
         toaste?.show()
     }
 
     fun t4(view: View) {
         hideToast()
         toaste =
-            Toaste.makeText(
+            Toaste.makeError(
                 this,
-                "Normal toast",
+                "Error Toaste",
+                false
+            )
+        toaste?.show()
+    }
+
+    fun t5(view: View) {
+        hideToast()
+        toaste =
+            Toaste.makeCustom(
+                this,
+                "Custom Toaste",
+                true,
                 Toaste.LENGTH_SHORT,
-                Toaste.TYPE_CUSTOM,
-                false,
-                R.drawable.ic_info,
-                R.color.colorPrimary,
-                R.color.colorAccent,
-                5f,
-                android.R.color.black,
-                android.R.color.black,
-                Gravity.BOTTOM
+                R.drawable.ic_flight_24dp,
+                R.color.a,
+                R.color.b,
+                10f,
+                android.R.color.holo_green_light,
+                android.R.color.white,
+                Gravity.TOP
             )
         toaste?.show()
     }

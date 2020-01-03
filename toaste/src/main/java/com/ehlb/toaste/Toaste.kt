@@ -1,5 +1,6 @@
 package com.ehlb.toaste
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
@@ -14,21 +15,167 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 
+@SuppressLint("InflateParams")
 class Toaste(mContext: Context) : Toast(mContext) {
     companion object {
-        const val TYPE_INFO = 0
-        const val TYPE_SUCCESS = 1
-        const val TYPE_WARNING = 2
-        const val TYPE_ERROR = 3
-        const val TYPE_CUSTOM = 4
         var LENGTH_LONG = Toast.LENGTH_SHORT
         var LENGTH_SHORT = Toast.LENGTH_LONG
-        fun makeText(
+
+        //regionInfo
+        fun makeInfo(
             context: Context,
             message: String?,
-            duration: Int = LENGTH_LONG,
-            type: Int = TYPE_INFO,
             withAnimation: Boolean = true,
+            duration: Int = LENGTH_SHORT
+        ): Toaste {
+            val toaste = Toaste(context)
+            val inflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view: View?
+            view = inflater.inflate(R.layout.view_toast, null)
+            if (view != null) {
+                val icon: ImageView = view.findViewById(R.id.toast_icon)
+                icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_info))
+
+                val text: TextView = view.findViewById(R.id.toast_text)
+                text.text = message
+            }
+
+            val bg: LinearLayout = view.findViewById(R.id.layout_bg)
+            bg.background = ContextCompat.getDrawable(
+                context,
+                R.drawable.toast_info_background
+            )
+
+            toaste.duration = duration
+            toaste.view = view
+
+            if (withAnimation) {
+                val bgPulse: Animation = AnimationUtils.loadAnimation(context, R.anim.anim_pulse)
+                bg.animation = bgPulse
+            }
+            return toaste
+        }
+        //endregion
+
+        //regionSuccess
+        fun makeSuccess(
+            context: Context,
+            message: String?,
+            withAnimation: Boolean = true,
+            duration: Int = LENGTH_SHORT
+        ): Toaste {
+            val toaste = Toaste(context)
+            val inflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view: View?
+            view = inflater.inflate(R.layout.view_toast, null)
+            if (view != null) {
+                val icon: ImageView = view.findViewById(R.id.toast_icon)
+                icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_success))
+
+                val text: TextView = view.findViewById(R.id.toast_text)
+                text.text = message
+            }
+
+            val bg: LinearLayout = view.findViewById(R.id.layout_bg)
+            bg.background = ContextCompat.getDrawable(
+                context,
+                R.drawable.toast_success_background
+            )
+
+            toaste.duration = duration
+            toaste.view = view
+
+            if (withAnimation) {
+                val bgPulse: Animation = AnimationUtils.loadAnimation(context, R.anim.anim_pulse)
+                bg.animation = bgPulse
+            }
+            return toaste
+        }
+        //endregion
+
+        //regionWarning
+        fun makeWarning(
+            context: Context,
+            message: String?,
+            withAnimation: Boolean = true,
+            duration: Int = LENGTH_SHORT
+        ): Toaste {
+            val toaste = Toaste(context)
+            val inflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view: View?
+            view = inflater.inflate(R.layout.view_toast, null)
+            if (view != null) {
+                val icon: ImageView = view.findViewById(R.id.toast_icon)
+                icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_warning))
+
+                val text: TextView = view.findViewById(R.id.toast_text)
+                text.text = message
+            }
+
+            val bg: LinearLayout = view.findViewById(R.id.layout_bg)
+            bg.background = ContextCompat.getDrawable(
+                context,
+                R.drawable.toast_warning_background
+            )
+
+            toaste.duration = duration
+            toaste.view = view
+
+            if (withAnimation) {
+                val bgPulse: Animation = AnimationUtils.loadAnimation(context, R.anim.anim_pulse)
+                bg.animation = bgPulse
+            }
+            return toaste
+        }
+        //endregion
+
+        //regionError
+        fun makeError(
+            context: Context,
+            message: String?,
+            withAnimation: Boolean = true,
+            duration: Int = LENGTH_SHORT
+        ): Toaste {
+            val toaste = Toaste(context)
+            val inflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view: View?
+            view = inflater.inflate(R.layout.view_toast, null)
+            if (view != null) {
+                val icon: ImageView = view.findViewById(R.id.toast_icon)
+                icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_error))
+
+                val text: TextView = view.findViewById(R.id.toast_text)
+                text.text = message
+            }
+
+            val bg: LinearLayout = view.findViewById(R.id.layout_bg)
+            bg.background = ContextCompat.getDrawable(
+                context,
+                R.drawable.toast_error_background
+            )
+
+            toaste.duration = duration
+            toaste.view = view
+
+            if (withAnimation) {
+                val bgPulse: Animation = AnimationUtils.loadAnimation(context, R.anim.anim_pulse)
+                bg.animation = bgPulse
+            }
+            Toast.LENGTH_LONG
+            return toaste
+        }
+        //endregion
+
+        //regionCustom
+        fun makeCustom(
+            context: Context,
+            message: String?,
+            withAnimation: Boolean = true,
+            duration: Int = LENGTH_LONG,
             iconID: Int = R.drawable.ic_info,
             bgStartColor: Int = R.color.bg_start_color,
             bgEndColor: Int = R.color.bg_end_color,
@@ -37,11 +184,23 @@ class Toaste(mContext: Context) : Toast(mContext) {
             iconColor: Int = android.R.color.white,
             gravity: Int = Gravity.BOTTOM
         ): Toaste {
-            var toaste = Toaste(context)
+            val toaste = Toaste(context)
             val inflater =
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view: View?
             view = inflater.inflate(R.layout.view_toast, null)
+            if (view != null) {
+                val icon: ImageView = view.findViewById(R.id.toast_icon)
+                try {
+                    icon.setImageDrawable(ContextCompat.getDrawable(context, iconID))
+                } catch (e: Throwable) {
+                    icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_info))
+                }
+
+                val text: TextView = view.findViewById(R.id.toast_text)
+                text.text = message
+            }
+
             var icon: ImageView? = null
             if (view != null) {
                 icon = view.findViewById(R.id.toast_icon)
@@ -59,41 +218,8 @@ class Toaste(mContext: Context) : Toast(mContext) {
                 )
             )
             gd.cornerRadius = radius
+            bg.background = gd
 
-            if (icon != null) when (type) {
-                TYPE_SUCCESS -> {
-                    icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_success))
-                    bg.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.toast_success_background
-                    )
-                }
-                TYPE_WARNING -> {
-                    icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_warning))
-                    bg.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.toast_warning_background
-                    )
-                }
-                TYPE_ERROR -> {
-                    icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_error))
-                    bg.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.toast_error_background
-                    )
-                }
-                TYPE_CUSTOM -> {
-                    icon.setImageDrawable(ContextCompat.getDrawable(context, iconID))
-                    bg.background = gd
-                }
-                else -> {
-                    icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_info))
-                    bg.background = ContextCompat.getDrawable(
-                        context,
-                        R.drawable.toast_info_background
-                    )
-                }
-            }
             if (text != null) {
                 text.text = message
             }
@@ -109,9 +235,7 @@ class Toaste(mContext: Context) : Toast(mContext) {
             if (gravity == Gravity.CENTER)
                 toaste.setGravity(gravity, 0, 0)
             else
-                toaste.setGravity(gravity, 0, 63)
-
-            Log.d("XXX", "" + toaste.yOffset)
+                toaste.setGravity(gravity, 0, toaste.yOffset)
 
             if (withAnimation) {
                 val bgPulse: Animation = AnimationUtils.loadAnimation(context, R.anim.anim_pulse)
@@ -119,5 +243,6 @@ class Toaste(mContext: Context) : Toast(mContext) {
             }
             return toaste
         }
+        //endregion
     }
 }

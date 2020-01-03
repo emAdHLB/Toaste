@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivityK">
 
     <TextView
         android:id="@+id/textView"
@@ -28,7 +28,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/whiteColor"
         android:onClick="t1"
-        android:text="Toaste 1" />
+        android:text="Info toaste" />
 
     <Button
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/whiteColor"
         android:onClick="t2"
-        android:text="Toaste 2" />
+        android:text="Success toaste" />
 
     <Button
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/whiteColor"
         android:onClick="t3"
-        android:text="Toaste 3" />
+        android:text="Warning toaset" />
 
     <Button
         android:layout_width="match_parent"
@@ -64,5 +64,17 @@
         android:layout_marginRight="16dp"
         android:background="@color/whiteColor"
         android:onClick="t4"
-        android:text="Toaste 4" />
+        android:text="Error toaste" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/whiteColor"
+        android:onClick="t5"
+        android:text="custome toaste" />
 </LinearLayout>
